@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Yassin_Vip-File — منصة خاصة</title>
+<link rel="icon" href="https://cdn.imagetourls.com/uploads/tyImg/asb9XJFJ.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Reem+Kufi:wght@500;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg-0:#030503;
+    --bg-1:#070c07;
+    --bg-2:#0b130b;
+    --panel:#0c140c;
+    --panel-2:#101a10;
+    --line:#1a281a;
+    --line-2:#243624;
+    --neon:#3bff86;
+    --neon-dim:#1c7e42;
+    --neon-glow:rgba(59,255,134,.35);
+    --gold:#d4af37;
+    --gold-dim:#8a7020;
+    --danger:#ff4d6d;
+    --danger-dim:#5c1a2a;
+    --text:#eef7ef;
+    --muted:#7d957f;
+    --muted-2:#5c6f5e;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{
+    font-family:'Cairo',system-ui,-apple-system,sans-serif;
+    background:var(--bg-0);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+    font-weight:400;
+    letter-spacing:.1px;
+    position:relative;
+  }
+  a{color:var(--neon);text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;outline:none;background:none;color:inherit;transition:.2s}
+  input,textarea,select{font-family:inherit;outline:none;border:none;background:none;color:inherit}
+  input:disabled,textarea:disabled{opacity:.55;cursor:not-allowed}
+  ::selection{background:var(--neon);color:var(--bg-0)}
+
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(1000px 500px at 85% -10%, rgba(59,255,134,.08) 0%, transparent 60%),
+      radial-gradient(800px 400px at -10% 110%, rgba(212,175,55,.06) 0%, transparent 55%),
+      radial-gradient(1400px 700px at 50% 50%, rgba(11,19,11,.6) 0%, transparent 70%);
+  }
+  body::after{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(rgba(59,255,134,.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(59,255,134,.025) 1px, transparent 1px);
+    background-size:56px 56px;
+    mask-image:radial-gradient(ellipse at 50% 30%, #000 0%, transparent 80%);
+    -webkit-mask-image:radial-gradient(ellipse at 50% 30%, #000 0%, transparent 80%);
+  }
+
+  .app-shell{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+
+  .topbar{
+    display:flex;align-items:center;gap:14px;
+    padding:12px 22px;
+    background:rgba(7,12,7,.85);
+    backdrop-filter:blur(14px) saturate(140%);
+    -webkit-backdrop-filter:blur(14px) saturate(140%);
+    border-bottom:1px solid var(--line);
+    position:sticky;top:0;z-index:50;
+  }
+  .topbar .logo{
+    width:38px;height:38px;border-radius:10px;object-fit:cover;
+    border:1px solid var(--line-2);
+    box-shadow:0 0 0 1px rgba(59,255,134,.15), 0 0 18px rgba(59,255,134,.12);
+    flex-shrink:0;
+  }
+  .topbar .title{
+    font-family:'Reem Kufi',sans-serif;
+    font-size:17px;font-weight:700;
+    background:linear-gradient(120deg, #eef7ef 0%, var(--neon) 60%, var(--gold) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    letter-spacing:.5px;
+  }
+  .topbar .title small{display:block;font-size:10.5px;color:var(--muted);font-weight:400;letter-spacing:2px;margin-top:1px;-webkit-text-fill-color:var(--muted)}
+  .topbar .spacer{flex:1}
+  .topbar .me-info{display:flex;align-items:center;gap:10px}
+  .topbar .me-info .who{text-align:left;line-height:1.2}
+  .topbar .me-info .who b{font-size:13px;font-weight:700}
+  .topbar .me-info .who span{display:block;font-size:10.5px;color:var(--muted)}
+  .topbar .me-info .av{
+    width:36px;height:36px;border-radius:50%;
+    background:linear-gradient(135deg, var(--neon-dim), var(--neon));
+    display:grid;place-items:center;color:var(--bg-0);font-weight:900;font-size:14px;
+    border:1.5px solid var(--line-2);
+    box-shadow:0 0 0 2px rgba(59,255,134,.1);
+  }
+  .topbar .logout{
+    padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:700;
+    color:var(--danger);border:1px solid var(--danger-dim);
+    background:rgba(255,77,109,.05);
+  }
+  .topbar .logout:hover{background:rgba(255,77,109,.12);border-color:var(--danger)}
+
+  .role-badge{
+    display:inline-flex;align-items:center;gap:5px;
+    padding:3px 9px;border-radius:6px;font-size:10.5px;font-weight:800;letter-spacing:.3px;
+    background:rgba(125,149,127,.1);color:var(--muted);border:1px solid var(--line-2);
+  }
+  .role-badge.owner{background:rgba(212,175,55,.1);color:var(--gold);border-color:var(--gold-dim)}
+  .role-badge.admin{background:rgba(255,77,109,.08);color:var(--danger);border-color:var(--danger-dim)}
+  .role-badge.dev  {background:rgba(59,255,134,.08);color:var(--neon);border-color:var(--neon-dim)}
+
+  .layout{
+    flex:1;display:grid;grid-template-columns:1fr;
+    gap:0;max-width:1500px;width:100%;margin:0 auto;
+  }
+  @media(min-width:960px){ .layout{grid-template-columns:260px 1fr;gap:22px;padding:22px} }
+
+  .sidebar{
+    background:rgba(7,12,7,.6);
+    border-bottom:1px solid var(--line);
+    padding:14px;overflow-x:auto;
+  }
+  @media(min-width:960px){
+    .sidebar{
+      background:linear-gradient(180deg, rgba(12,20,12,.7), rgba(7,12,7,.7));
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:16px;
+      height:fit-content;
+      position:sticky;top:82px;
+      overflow-x:visible;
+    }
+  }
+  .sidebar h3{
+    font-size:10.5px;color:var(--muted-2);letter-spacing:2.5px;font-weight:700;
+    text-transform:uppercase;margin-bottom:12px;padding:0 8px;
+  }
+  .sidebar nav{display:flex;gap:6px;flex-wrap:nowrap}
+  @media(min-width:960px){ .sidebar nav{flex-direction:column;gap:4px} }
+  .sidebar nav button{
+    display:flex;align-items:center;gap:10px;
+    padding:10px 12px;border-radius:10px;
+    color:var(--muted);font-weight:600;font-size:13.5px;
+    white-space:nowrap;flex-shrink:0;
+    border:1px solid transparent;
+    position:relative;
+  }
+  .sidebar nav button:hover{color:var(--text);background:rgba(59,255,134,.04)}
+  .sidebar nav button.active{
+    color:var(--neon);
+    background:linear-gradient(90deg, rgba(59,255,134,.12), transparent 90%);
+    border-color:var(--line-2);
+    box-shadow:inset 2px 0 0 var(--neon);
+  }
+  .sidebar nav button .ic{font-size:15px;width:18px;text-align:center}
+
+  .main{padding:18px}
+  @media(min-width:960px){ .main{padding:0} }
+  .page{
+    background:linear-gradient(180deg, rgba(12,20,12,.7), rgba(7,12,7,.7));
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:22px;
+    min-height:520px;
+    animation:fadeUp .35s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .page-head{margin-bottom:20px}
+  .page-head h2{
+    font-family:'Reem Kufi',sans-serif;
+    font-size:20px;font-weight:700;letter-spacing:.3px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .page-head p{font-size:12.5px;color:var(--muted);margin-top:4px}
+
+  .composer{
+    background:rgba(3,5,3,.5);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:14px;
+    margin-bottom:20px;
+  }
+  .composer textarea{
+    width:100%;min-height:80px;
+    background:rgba(0,0,0,.3);
+    color:var(--text);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:12px 14px;
+    font-size:14px;resize:vertical;line-height:1.6;
+    transition:.2s;
+  }
+  .composer textarea::placeholder{color:var(--muted-2)}
+  .composer textarea:focus{border-color:var(--neon-dim);box-shadow:0 0 0 3px rgba(59,255,134,.08)}
+  .composer .row{
+    display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center;
+  }
+  .file-pick{
+    display:inline-flex;align-items:center;gap:7px;
+    padding:8px 12px;border-radius:9px;
+    background:rgba(59,255,134,.04);
+    border:1px solid var(--line-2);
+    color:var(--muted);font-size:12.5px;font-weight:600;cursor:pointer;
+  }
+  .file-pick:hover{color:var(--neon);border-color:var(--neon-dim)}
+  .file-pick input{display:none}
+  .file-pick.attached{color:var(--neon);border-color:var(--neon-dim);background:rgba(59,255,134,.08)}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:11px 20px;border-radius:10px;
+    font-weight:800;font-size:13.5px;letter-spacing:.3px;
+    background:linear-gradient(135deg, var(--neon), #2fd173);
+    color:var(--bg-0);
+    box-shadow:0 4px 16px rgba(59,255,134,.2), 0 0 0 1px rgba(59,255,134,.3);
+    transition:.2s;
+  }
+  .btn:hover{transform:translateY(-1px);box-shadow:0 6px 22px rgba(59,255,134,.32)}
+  .btn:active{transform:translateY(0)}
+  .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+  .btn.ghost{
+    background:transparent;color:var(--neon);
+    border:1px solid var(--neon-dim);box-shadow:none;
+  }
+  .btn.ghost:hover{background:rgba(59,255,134,.08)}
+  .btn.danger{
+    background:linear-gradient(135deg, #ff4d6d, #e63a5a);
+    color:#fff;
+    box-shadow:0 4px 16px rgba(255,77,109,.2);
+  }
+  .btn.small{padding:7px 12px;font-size:12px;border-radius:8px}
+  .btn.full{width:100%}
+
+  .feed{display:flex;flex-direction:column;gap:12px}
+  .post{
+    background:linear-gradient(180deg, rgba(16,26,16,.5), rgba(10,16,10,.5));
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:14px;
+    transition:.2s;
+  }
+  .post:hover{border-color:var(--line-2)}
+  .post .post-head{display:flex;gap:11px;align-items:center;margin-bottom:10px}
+  .post .post-head .av{
+    width:38px;height:38px;border-radius:11px;
+    background:linear-gradient(135deg, var(--neon-dim), var(--neon));
+    display:grid;place-items:center;color:var(--bg-0);font-weight:900;font-size:15px;
+    flex-shrink:0;
+    border:1px solid var(--line-2);
+  }
+  .post .post-head .av.owner{background:linear-gradient(135deg, var(--gold-dim), var(--gold))}
+  .post .post-head .av.admin{background:linear-gradient(135deg, #7a1e2f, #e63a5a)}
+  .post .post-head .meta{flex:1;min-width:0}
+  .post .post-head .meta .name{
+    display:flex;align-items:center;gap:8px;
+    font-size:14px;font-weight:700;
+  }
+  .post .post-head .meta .info{font-size:11px;color:var(--muted);margin-top:2px}
+  .post .body{
+    font-size:14px;line-height:1.75;
+    white-space:pre-wrap;word-break:break-word;
+    margin-bottom:8px;color:#d8e9da;
+  }
+  .post .attach-img{
+    max-width:100%;max-height:520px;border-radius:10px;
+    border:1px solid var(--line-2);
+    margin-top:8px;cursor:zoom-in;display:block;
+  }
+  .post .attach-file{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:9px 13px;border-radius:9px;
+    background:rgba(59,255,134,.06);
+    border:1px solid var(--neon-dim);
+    color:var(--neon);font-size:12.5px;font-weight:600;
+    margin-top:8px;
+    transition:.2s;
+  }
+  .post .attach-file:hover{background:rgba(59,255,134,.12)}
+  .post .post-actions{
+    display:flex;gap:6px;margin-top:10px;
+    padding-top:10px;border-top:1px solid var(--line);
+  }
+  .post .post-actions button{
+    color:var(--muted);font-size:11.5px;padding:5px 10px;
+    border-radius:6px;font-weight:600;
+  }
+  .post .post-actions button:hover{background:rgba(255,77,109,.08);color:var(--danger)}
+  .post .post-actions button.edit:hover{background:rgba(59,255,134,.08);color:var(--neon)}
+
+  .chat-shell{
+    display:grid;grid-template-columns:1fr;
+    gap:14px;
+    height:calc(100vh - 260px);min-height:480px;
+  }
+  @media(min-width:900px){ .chat-shell{grid-template-columns:300px 1fr} }
+  .chat-side{
+    background:rgba(3,5,3,.5);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:10px;overflow-y:auto;
+  }
+  .chat-side h4{
+    font-size:10.5px;color:var(--muted-2);letter-spacing:2px;
+    padding:6px 10px;text-transform:uppercase;font-weight:700;margin-bottom:4px;
+  }
+  .chat-contact{
+    display:flex;gap:11px;align-items:center;
+    padding:10px;border-radius:10px;
+    cursor:pointer;transition:.15s;
+    border:1px solid transparent;
+    margin-bottom:2px;
+  }
+  .chat-contact:hover{background:rgba(59,255,134,.04)}
+  .chat-contact.active{
+    background:linear-gradient(90deg, rgba(59,255,134,.1), transparent);
+    border-color:var(--line-2);
+    box-shadow:inset 2px 0 0 var(--neon);
+  }
+  .chat-contact .av{
+    width:40px;height:40px;border-radius:11px;flex-shrink:0;
+    background:linear-gradient(135deg, var(--neon-dim), var(--neon));
+    display:grid;place-items:center;color:var(--bg-0);font-weight:900;font-size:15px;
+    border:1px solid var(--line-2);
+  }
+  .chat-contact .av.owner{background:linear-gradient(135deg, var(--gold-dim), var(--gold))}
+  .chat-contact .av.admin{background:linear-gradient(135deg, #7a1e2f, #e63a5a)}
+  .chat-contact .info{flex:1;min-width:0}
+  .chat-contact .info .n{
+    display:flex;align-items:center;gap:6px;
+    font-size:13.5px;font-weight:700;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .chat-contact .info .p{
+    font-size:11px;color:var(--muted);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+    margin-top:2px;
+  }
+  .chat-contact .time{font-size:10px;color:var(--muted-2);flex-shrink:0}
+
+  .chat-room{
+    background:rgba(3,5,3,.4);
+    border:1px solid var(--line);
+    border-radius:12px;
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  .chat-header{
+    display:flex;gap:11px;align-items:center;
+    padding:12px 16px;
+    border-bottom:1px solid var(--line);
+    background:rgba(16,26,16,.4);
+  }
+  .chat-header .av{
+    width:38px;height:38px;border-radius:11px;
+    background:linear-gradient(135deg, var(--neon-dim), var(--neon));
+    display:grid;place-items:center;color:var(--bg-0);font-weight:900;font-size:15px;
+  }
+  .chat-header .av.owner{background:linear-gradient(135deg, var(--gold-dim), var(--gold))}
+  .chat-header .av.admin{background:linear-gradient(135deg, #7a1e2f, #e63a5a)}
+  .chat-header .who h3{font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .chat-header .who span{font-size:11px;color:var(--muted);margin-top:2px;display:block}
+
+  .chat-body{
+    flex:1;overflow-y:auto;padding:18px;
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .bubble{
+    max-width:72%;padding:10px 14px;
+    border-radius:14px;
+    font-size:13.5px;line-height:1.6;
+    position:relative;word-break:break-word;
+    animation:fadeUp .2s ease both;
+  }
+  .bubble .txt{white-space:pre-wrap}
+  .bubble.mine{
+    align-self:flex-end;
+    background:linear-gradient(135deg, var(--neon), #26b862);
+    color:var(--bg-0);
+    border-bottom-right-radius:4px;
+    font-weight:500;
+  }
+  .bubble.theirs{
+    align-self:flex-start;
+    background:rgba(22,36,22,.9);
+    color:var(--text);
+    border:1px solid var(--line-2);
+    border-bottom-left-radius:4px;
+  }
+  .bubble img{max-width:100%;border-radius:8px;margin-top:7px;cursor:zoom-in;display:block}
+  .bubble .f-link{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:6px 10px;border-radius:7px;
+    background:rgba(0,0,0,.25);color:inherit;
+    font-size:12.5px;font-weight:600;margin-top:6px;
+  }
+  .bubble .stamp{
+    font-size:9.5px;opacity:.6;margin-top:5px;display:block;text-align:right;
+  }
+  .bubble .bub-acts{
+    display:flex;gap:3px;margin-top:5px;
+    opacity:0;transition:.2s;
+  }
+  .bubble:hover .bub-acts{opacity:1}
+  .bubble .bub-acts button{
+    color:inherit;opacity:.7;
+    padding:2px 7px;border-radius:5px;font-size:11px;
+  }
+  .bubble .bub-acts button:hover{opacity:1;background:rgba(0,0,0,.2)}
+
+  .chat-compose{
+    display:flex;gap:8px;padding:12px;
+    border-top:1px solid var(--line);
+    background:rgba(16,26,16,.4);
+    align-items:flex-end;
+  }
+  .chat-compose .icon-btn{
+    width:42px;height:42px;flex-shrink:0;
+    border-radius:11px;
+    background:rgba(59,255,134,.04);
+    border:1px solid var(--line-2);
+    display:grid;place-items:center;
+    color:var(--muted);font-size:17px;
+    cursor:pointer;
+  }
+  .chat-compose .icon-btn:hover{color:var(--neon);border-color:var(--neon-dim)}
+  .chat-compose .icon-btn.send{
+    background:linear-gradient(135deg, var(--neon), #2fd173);
+    color:var(--bg-0);border:none;
+  }
+  .chat-compose .icon-btn.send:hover{filter:brightness(1.1)}
+  .chat-compose .icon-btn input{display:none}
+  .chat-compose textarea{
+    flex:1;
+    background:rgba(0,0,0,.3);
+    color:var(--text);
+    border:1px solid var(--line);
+    border-radius:11px;
+    padding:11px 14px;font-size:14px;
+    resize:none;max-height:130px;min-height:42px;
+    line-height:1.5;
+  }
+  .chat-compose textarea:focus{border-color:var(--neon-dim);box-shadow:0 0 0 3px rgba(59,255,134,.06)}
+  .empty-chat{
+    flex:1;display:grid;place-items:center;
+    color:var(--muted-2);font-size:13.5px;
+    text-align:center;padding:30px;
+  }
+  .empty-chat .big{font-size:42px;margin-bottom:12px;opacity:.4}
+
+  .user-list{display:flex;flex-direction:column;gap:8px}
+  .user-item{
+    display:flex;align-items:center;gap:12px;
+    padding:12px 14px;
+    background:rgba(3,5,3,.5);
+    border:1px solid var(--line);
+    border-radius:11px;
+    transition:.2s;
+  }
+  .user-item:hover{border-color:var(--line-2);background:rgba(16,26,16,.4)}
+  .user-item .av{
+    width:40px;height:40px;border-radius:11px;
+    background:linear-gradient(135deg, var(--neon-dim), var(--neon));
+    display:grid;place-items:center;color:var(--bg-0);font-weight:900;font-size:15px;
+    flex-shrink:0;
+  }
+  .user-item .av.owner{background:linear-gradient(135deg, var(--gold-dim), var(--gold))}
+  .user-item .av.admin{background:linear-gradient(135deg, #7a1e2f, #e63a5a)}
+  .user-item .u-info{flex:1;min-width:0}
+  .user-item .u-info .n{
+    display:flex;align-items:center;gap:8px;flex-wrap:wrap;
+    font-size:13.5px;font-weight:700;
+  }
+  .user-item .u-info .e{font-size:11.5px;color:var(--muted);margin-top:2px}
+  .user-item .u-info .perms{font-size:11px;color:var(--muted-2);margin-top:3px}
+
+  .modal{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(0,0,0,.75);
+    backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+    display:none;place-items:center;padding:20px;
+  }
+  .modal.open{display:grid;animation:fadeUp .25s ease both}
+  .modal-card{
+    width:min(560px,96vw);
+    max-height:90vh;overflow-y:auto;
+    background:linear-gradient(180deg, #0c140c, #070c07);
+    border:1px solid var(--line-2);
+    border-radius:16px;
+    padding:24px;
+    box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(59,255,134,.06);
+  }
+  .modal-card h3{font-family:'Reem Kufi',sans-serif;font-size:18px;margin-bottom:5px}
+  .modal-card .sub{font-size:12px;color:var(--muted);margin-bottom:18px}
+  .perm-row{
+    display:flex;align-items:center;gap:11px;
+    padding:11px 13px;border-radius:10px;
+    background:rgba(3,5,3,.5);border:1px solid var(--line);
+    margin-bottom:6px;cursor:pointer;transition:.15s;
+  }
+  .perm-row:hover{border-color:var(--neon-dim);background:rgba(59,255,134,.03)}
+  .perm-row input[type=checkbox]{
+    width:18px;height:18px;accent-color:var(--neon);cursor:pointer;flex-shrink:0;
+  }
+  .perm-row .ptxt{flex:1}
+  .perm-row .ptxt b{display:block;font-size:13px;font-weight:700}
+  .perm-row .ptxt small{font-size:11px;color:var(--muted);display:block;margin-top:2px}
+
+  .auth-shell{
+    min-height:100vh;display:grid;place-items:center;
+    padding:24px;position:relative;z-index:1;
+  }
+  .auth-card{
+    width:min(440px,96vw);
+    background:linear-gradient(180deg, rgba(16,26,16,.85), rgba(7,12,7,.95));
+    border:1px solid var(--line-2);
+    border-radius:20px;
+    padding:38px 30px 32px;
+    box-shadow:0 0 0 1px rgba(59,255,134,.05), 0 30px 80px rgba(0,0,0,.6);
+    position:relative;overflow:hidden;
+    animation:fadeUp .5s cubic-bezier(.2,.8,.2,1) both;
+  }
+  .auth-card::before{
+    content:"";position:absolute;inset:-1px;border-radius:20px;
+    background:conic-gradient(from 0deg, transparent 0%, var(--neon-dim) 15%, transparent 30%, transparent 70%, var(--gold-dim) 85%, transparent);
+    opacity:.15;filter:blur(16px);z-index:-1;
+    animation:spin 14s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .auth-brand{text-align:center;margin-bottom:26px}
+  .auth-brand img{
+    width:88px;height:88px;border-radius:22px;
+    object-fit:cover;
+    border:1.5px solid var(--line-2);
+    box-shadow:0 0 0 3px rgba(59,255,134,.08), 0 0 40px rgba(59,255,134,.15);
+    animation:pulseGlow 3.5s ease-in-out infinite;
+  }
+  @keyframes pulseGlow{
+    0%,100%{box-shadow:0 0 0 3px rgba(59,255,134,.08), 0 0 40px rgba(59,255,134,.15)}
+    50%{box-shadow:0 0 0 3px rgba(59,255,134,.15), 0 0 60px rgba(59,255,134,.28)}
+  }
+  .auth-brand h1{
+    font-family:'Reem Kufi',sans-serif;
+    font-size:26px;font-weight:700;margin-top:16px;
+    background:linear-gradient(120deg, #eef7ef 0%, var(--neon) 55%, var(--gold) 100%);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    letter-spacing:.5px;
+  }
+  .auth-brand p{font-size:11px;color:var(--muted-2);letter-spacing:3px;margin-top:6px}
+
+  .auth-tabs{
+    display:flex;gap:4px;
+    background:rgba(3,5,3,.6);
+    border:1px solid var(--line);
+    border-radius:11px;padding:4px;margin-bottom:22px;
+  }
+  .auth-tabs button{
+    flex:1;padding:10px;border-radius:8px;
+    color:var(--muted);font-weight:700;font-size:13px;
+  }
+  .auth-tabs button.active{
+    background:linear-gradient(180deg, rgba(59,255,134,.15), rgba(59,255,134,.05));
+    color:var(--neon);
+    box-shadow:inset 0 0 0 1px rgba(59,255,134,.25);
+  }
+
+  .field{margin-bottom:14px}
+  .field label{
+    display:block;font-size:11.5px;color:var(--muted);
+    margin-bottom:7px;font-weight:700;letter-spacing:.5px;
+    text-transform:uppercase;
+  }
+  .field input,.field select{
+    width:100%;padding:13px 15px;
+    background:rgba(3,5,3,.7);
+    color:var(--text);
+    border:1px solid var(--line-2);
+    border-radius:10px;
+    font-size:14px;transition:.2s;
+  }
+  .field input::placeholder{color:var(--muted-2)}
+  .field input:focus,.field select:focus{
+    border-color:var(--neon-dim);
+    box-shadow:0 0 0 3px rgba(59,255,134,.08);
+    background:rgba(3,5,3,.9);
+  }
+  .field.admin-code{
+    padding:13px;border-radius:11px;
+    background:linear-gradient(180deg, rgba(212,175,55,.06), rgba(212,175,55,.01));
+    border:1px solid var(--gold-dim);
+  }
+  .field.admin-code label{color:var(--gold)}
+  .field.admin-code input{border-color:rgba(212,175,55,.3)}
+  .field.admin-code input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.1)}
+  .field.admin-code small{
+    display:block;color:var(--muted);font-size:11px;margin-top:7px;line-height:1.5;
+  }
+  .auth-msg{font-size:12.5px;margin-top:12px;text-align:center;min-height:18px;font-weight:600}
+  .auth-msg.err{color:var(--danger)}
+  .auth-msg.ok{color:var(--neon)}
+
+  .toast{
+    position:fixed;bottom:24px;left:24px;z-index:400;
+    padding:12px 18px;border-radius:10px;
+    font-size:13px;font-weight:700;
+    background:linear-gradient(135deg, var(--neon), #2fd173);
+    color:var(--bg-0);
+    box-shadow:0 12px 32px rgba(59,255,134,.35);
+    transform:translateY(80px);opacity:0;
+    transition:.35s cubic-bezier(.2,.8,.2,1);
+    max-width:calc(100vw - 48px);
+  }
+  .toast.show{transform:none;opacity:1}
+  .toast.err{
+    background:linear-gradient(135deg, #ff4d6d, #e63a5a);
+    color:#fff;
+    box-shadow:0 12px 32px rgba(255,77,109,.35);
+  }
+  .lightbox{
+    position:fixed;inset:0;z-index:500;
+    background:rgba(0,0,0,.95);
+    backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    display:none;place-items:center;padding:30px;cursor:zoom-out;
+  }
+  .lightbox.open{display:grid}
+  .lightbox img{max-width:100%;max-height:100%;border-radius:12px;border:1px solid var(--line-2)}
+
+  .empty-state{
+    text-align:center;color:var(--muted-2);
+    padding:60px 20px;font-size:13.5px;
+  }
+  .empty-state .big{font-size:52px;margin-bottom:14px;opacity:.35}
+
+  ::-webkit-scrollbar{width:9px;height:9px}
+  ::-webkit-scrollbar-track{background:rgba(3,5,3,.5)}
+  ::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:5px}
+  ::-webkit-scrollbar-thumb:hover{background:var(--neon-dim)}
+
+  @media(max-width:600px){
+    .topbar{padding:10px 14px;gap:10px}
+    .topbar .title{font-size:15px}
+    .topbar .title small{font-size:9px;letter-spacing:1.5px}
+    .topbar .me-info .who{display:none}
+    .page{padding:16px}
+    .page-head h2{font-size:17px}
+    .chat-shell{height:calc(100vh - 200px)}
+    .auth-card{padding:30px 22px 26px}
+    .auth-brand img{width:74px;height:74px}
+    .auth-brand h1{font-size:22px}
+  }
+</style>
+</head>
+<body>
+
+<div id="authView" class="auth-shell">
+  <div class="auth-card">
+    <div class="auth-brand">
+      <img src="https://cdn.imagetourls.com/uploads/tyImg/asb9XJFJ.png" alt="Yassin_Vip" />
+      <h1>Yassin_Vip-File</h1>
+      <p>منصة خاصة</p>
+    </div>
+
+    <div class="auth-tabs">
+      <button id="tabLogin" class="active" onclick="switchTab('login')">دخول</button>
+      <button id="tabReg" onclick="switchTab('reg')">حساب جديد</button>
+    </div>
+
+    <div id="loginForm">
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input id="loginEmail" type="email" placeholder="example@mail.com" autocomplete="email" />
+      </div>
+      <div class="field">
+        <label>كلمة المرور</label>
+        <input id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password" />
+      </div>
+      <button class="btn full" onclick="doLogin()">دخول المنصة</button>
+      <div id="loginMsg" class="auth-msg"></div>
+    </div>
+
+    <div id="regForm" style="display:none">
+      <div class="field">
+        <label>الاسم الظاهر</label>
+        <input id="regName" type="text" placeholder="اسمك في المنصة" />
+      </div>
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input id="regEmail" type="email" placeholder="example@mail.com" autocomplete="email" />
+      </div>
+      <div class="field">
+        <label>كلمة المرور</label>
+        <input id="regPass" type="password" placeholder="٦ حروف على الأقل" autocomplete="new-password" />
+      </div>
+      <div class="field admin-code">
+        <label>🔑 كود الأدمن (اختياري)</label>
+        <input id="regAdminCode" type="text" placeholder="اتركه فاضي لو مش أدمن" />
+        <small>هذا الحقل للأدمن فقط. لو معاك الكود اكتبه، وإلا اتركه فاضي.</small>
+      </div>
+      <button class="btn full" onclick="doRegister()">إنشاء الحساب</button>
+      <div id="regMsg" class="auth-msg"></div>
+    </div>
+  </div>
+</div>
+
+<div id="appView" class="app-shell" style="display:none">
+  <header class="topbar">
+    <img class="logo" src="https://cdn.imagetourls.com/uploads/tyImg/asb9XJFJ.png" alt="" />
+    <div>
+      <div class="title">Yassin_Vip-File<small>PRIVATE PLATFORM</small></div>
+    </div>
+    <div class="spacer"></div>
+    <div class="me-info">
+      <div class="who">
+        <b id="meName">—</b>
+        <span id="meBadgeTxt">—</span>
+      </div>
+      <div class="av" id="meAv">؟</div>
+    </div>
+    <button class="logout" onclick="doLogout()">خروج</button>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar">
+      <h3>القائمة</h3>
+      <nav>
+        <button data-tab="channel" class="active" onclick="setTab('channel')"><span class="ic">📡</span> القناة</button>
+        <button data-tab="dev" id="navDev" onclick="setTab('dev')" style="display:none"><span class="ic">⚙️</span> للمطورين</button>
+        <button data-tab="chats" onclick="setTab('chats')"><span class="ic">💬</span> المحادثات</button>
+        <button data-tab="admin" id="navAdmin" onclick="setTab('admin')" style="display:none"><span class="ic">🛡️</span> الإدارة</button>
+        <button data-tab="profile" onclick="setTab('profile')"><span class="ic">👤</span> حسابي</button>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="page" id="content"></div>
+    </main>
+  </div>
+</div>
+
+<div class="modal" id="permModal">
+  <div class="modal-card">
+    <h3 id="pmTitle">إدارة الصلاحيات</h3>
+    <div class="sub" id="pmSub"></div>
+    <div id="pmBody"></div>
+    <div style="display:flex;gap:10px;margin-top:18px">
+      <button class="btn ghost" style="flex:1" onclick="closePermModal()">إلغاء</button>
+      <button class="btn" style="flex:1" onclick="savePerms()">حفظ التعديلات</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="lightbox" id="lightbox" onclick="this.classList.remove('open')"><img id="lightImg" src="" alt="" /></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getDatabase, ref, set, get, push, onValue, remove, update }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBfq6Sh8jjTIzliuGcL0M4ODD65x6TMENE",
+  authDomain: "yassin-vip-file1.firebaseapp.com",
+  databaseURL: "https://yassin-vip-file1-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "yassin-vip-file1",
+  storageBucket: "yassin-vip-file1.firebasestorage.app",
+  messagingSenderId: "1048524371869",
+  appId: "1:1048524371869:web:e6be47a531a334bec0a174"
+};
+const OWNER_EMAIL = "yasynwayl527@gmail.com";
+const ADMIN_CODE  = "2027/Yassin_Vip";
+const IMGBB_KEY   = "a28892353d6ae7925382fbd16ecee4a1";
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getDatabase(app);
+
+const PERMS = [
+  { key:"canPostChannel",   label:"النشر في القناة",       desc:"يستطيع كتابة منشورات في القناة العامة" },
+  { key:"canSeeDevTab",     label:"مشاهدة تبويب المطورين",   desc:"يستطيع رؤية قسم المطورين الخاص" },
+  { key:"canPostDevTab",    label:"النشر في تبويب المطورين",  desc:"يستطيع الكتابة في قسم المطورين" },
+  { key:"receiveUserMsgs",  label:"استقبال رسائل الأعضاء",    desc:"يظهر في قائمة المحادثات للأعضاء" },
+  { key:"replyChats",       label:"الرد على المحادثات",       desc:"يستطيع إرسال رسائل في المحادثات" },
+  { key:"deleteAnyPost",    label:"حذف أي منشور",            desc:"يستطيع حذف منشورات الآخرين في القناة" },
+  { key:"deleteAnyMessage", label:"حذف أي رسالة",            desc:"يستطيع حذف رسائل الآخرين في المحادثات" },
+  { key:"manageUsers",      label:"إدارة الأعضاء",            desc:"يستطيع تعديل الرتب والصلاحيات" }
+];
+
+const ROLES = {
+  owner: { label:"المطوّر",       cls:"owner", icon:"👑" },
+  admin: { label:"أدمن",          cls:"admin", icon:"🛡️" },
+  dev:   { label:"مطوّر مساعد",   cls:"dev",   icon:"⚙️" },
+  user:  { label:"عضو",           cls:"",      icon:"" }
+};
+
+let me = null;
+let allUsers = {};
+let unsubFeed = null;
+let unsubChatRoom = null;
+let activeChatUid = null;
+let editingPostKey = null;
+let permTargetUid = null;
+
+window.toast = (msg, err=false) => {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.className = "toast show" + (err ? " err" : "");
+  clearTimeout(window.__tt);
+  window.__tt = setTimeout(() => t.className = "toast", 3200);
+};
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initial = s => (String(s||"?").trim()[0] || "?").toUpperCase();
+const fmtTime = ts => {
+  if(!ts) return "";
+  const d = new Date(ts), now = new Date(), diff = (now-d)/1000;
+  if(diff<60) return "الآن";
+  if(diff<3600) return Math.floor(diff/60)+" د";
+  if(diff<86400) return Math.floor(diff/3600)+" س";
+  if(diff<604800) return Math.floor(diff/86400)+" يوم";
+  return d.toLocaleDateString("ar-EG");
+};
+const isOwner = e => e && e.toLowerCase() === OWNER_EMAIL;
+const hasPerm = (u,k) => {
+  if(!u) return false;
+  if(u.isOwner) return true;
+  return !!(u.perms && u.perms[k]);
+};
+const roleInfo = (u) => {
+  if(!u) return ROLES.user;
+  if(u.isOwner) return ROLES.owner;
+  return ROLES[u.role] || ROLES.user;
+};
+const roleBadge = (u) => {
+  const r = roleInfo(u);
+  return `<span class="role-badge ${r.cls}">${r.icon ? r.icon+" " : ""}${r.label}</span>`;
+};
+
+window.switchTab = which => {
+  const login = which==="login";
+  document.getElementById("tabLogin").classList.toggle("active", login);
+  document.getElementById("tabReg").classList.toggle("active", !login);
+  document.getElementById("loginForm").style.display = login?"":"none";
+  document.getElementById("regForm").style.display   = login?"none":"";
+};
+
+window.doRegister = async () => {
+  const name = document.getElementById("regName").value.trim();
+  const email = document.getElementById("regEmail").value.trim();
+  const pass = document.getElementById("regPass").value;
+  const code = document.getElementById("regAdminCode").value.trim();
+  const msg = document.getElementById("regMsg");
+
+  msg.className = "auth-msg err";
+  if(!name || !email || !pass){ msg.textContent = "أكمل جميع الحقول"; return; }
+  if(pass.length < 6){ msg.textContent = "كلمة المرور ٦ حروف على الأقل"; return; }
+
+  const owner = isOwner(email);
+  const adminByCode = code === ADMIN_CODE;
+  const role = owner ? "owner" : (adminByCode ? "admin" : "user");
+
+  msg.className = "auth-msg"; msg.textContent = "جاري الإنشاء...";
+  try{
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    await set(ref(db,"users/"+cred.user.uid), {
+      uid: cred.user.uid, name, email, role,
+      perms: {},
+      createdAt: Date.now()
+    });
+    msg.className = "auth-msg ok";
+    msg.textContent = owner ? "تم إنشاء حساب المطوّر" : adminByCode ? "تم إنشاء حساب أدمن" : "تم إنشاء الحساب";
+    toast(owner ? "أهلاً بك يا مطوّر" : "أهلاً بك، " + name);
+  }catch(e){
+    msg.className = "auth-msg err";
+    msg.textContent = e.code==="auth/email-already-in-use" ? "الإيميل مستخدم بالفعل"
+                    : e.code==="auth/invalid-email" ? "إيميل غير صالح"
+                    : e.code==="auth/weak-password" ? "كلمة المرور ضعيفة"
+                    : e.message;
+  }
+};
+
+window.doLogin = async () => {
+  const email = document.getElementById("loginEmail").value.trim();
+  const pass = document.getElementById("loginPass").value;
+  const msg = document.getElementById("loginMsg");
+  msg.className = "auth-msg err";
+  if(!email || !pass){ msg.textContent = "أكمل جميع الحقول"; return; }
+  msg.className = "auth-msg"; msg.textContent = "جاري التحقق...";
+  try{
+    await signInWithEmailAndPassword(auth, email, pass);
+    msg.className = "auth-msg ok"; msg.textContent = "تم الدخول";
+  }catch(e){
+    msg.className = "auth-msg err";
+    msg.textContent = e.code==="auth/invalid-credential" ? "بيانات الدخول غير صحيحة"
+                    : e.code==="auth/user-not-found" ? "الحساب غير موجود"
+                    : e.code==="auth/wrong-password" ? "كلمة المرور خاطئة"
+                    : e.message;
+  }
+};
+
+window.doLogout = async () => {
+  if(unsubFeed){ unsubFeed(); unsubFeed=null; }
+  if(unsubChatRoom){ unsubChatRoom(); unsubChatRoom=null; }
+  await signOut(auth);
+  location.reload();
+};
+
+onAuthStateChanged(auth, async user => {
+  if(!user){
+    document.getElementById("authView").style.display = "";
+    document.getElementById("appView").style.display = "none";
+    me = null; return;
+  }
+  const uid = user.uid, email = user.email;
+  const snap = await get(ref(db,"users/"+uid));
+  let profile;
+  if(snap.exists()){ profile = snap.val(); }
+  else {
+    profile = {
+      uid, name: email.split("@")[0], email,
+      role: isOwner(email) ? "owner" : "user",
+      perms: {}, createdAt: Date.now()
+    };
+    await set(ref(db,"users/"+uid), profile);
+  }
+  const owner = isOwner(email);
+  me = {
+    uid, email,
+    name: profile.name,
+    role: owner ? "owner" : (profile.role || "user"),
+    isOwner: owner,
+    perms: profile.perms || {}
+  };
+  const r = roleInfo(me);
+
+  document.getElementById("authView").style.display = "none";
+  document.getElementById("appView").style.display = "";
+  document.getElementById("meName").textContent = me.name;
+  document.getElementById("meBadgeTxt").textContent = r.icon + " " + r.label;
+  document.getElementById("meAv").textContent = initial(me.name);
+
+  document.getElementById("navDev").style.display   = hasPerm(me,"canSeeDevTab") ? "" : "none";
+  document.getElementById("navAdmin").style.display = (me.isOwner || hasPerm(me,"manageUsers")) ? "" : "none";
+
+  setTab("channel");
+});
+
+window.setTab = name => {
+  document.querySelectorAll(".sidebar nav button").forEach(b => b.classList.toggle("active", b.dataset.tab===name));
+  if(unsubFeed){ unsubFeed(); unsubFeed=null; }
+  if(unsubChatRoom){ unsubChatRoom(); unsubChatRoom=null; }
+  if(name==="channel") renderChannel();
+  if(name==="dev")     renderDevTab();
+  if(name==="chats")   renderChats();
+  if(name==="admin")   renderAdmin();
+  if(name==="profile") renderProfile();
+};
+
+/* ============ UPLOAD ============ */
+async function uploadImage(file){
+  const fd = new FormData();
+  fd.append("image", file);
+  const res = await fetch("https://api.imgbb.com/1/upload?key=" + IMGBB_KEY, { method:"POST", body:fd });
+  const j = await res.json();
+  if(!j.success) throw new Error("ImgBB: " + (j.error?.message || "failed"));
+  return { url: j.data.url, thumb: j.data.thumb?.url || j.data.url };
+}
+
+async function uploadFile(file){
+  const fd = new FormData();
+  fd.append("file", file);
+  const res = await fetch("https://tmpfiles.org/api/v1/upload", { method:"POST", body:fd });
+  const j = await res.json();
+  if(!j.data?.url) throw new Error("Upload failed");
+  const directUrl = j.data.url.replace("tmpfiles.org/", "tmpfiles.org/dl/");
+  return { url: directUrl, name: file.name, size: file.size };
+}
+
+function composerHTML(id){
+  return `
+    <div class="composer">
+      <textarea id="${id}_text" placeholder="اكتب رسالتك هنا..."></textarea>
+      <div class="row">
+        <label class="file-pick" id="${id}_imgLbl">🖼️ صورة<input type="file" accept="image/*" id="${id}_img" /></label>
+        <label class="file-pick" id="${id}_fileLbl">📎 ملف<input type="file" id="${id}_file" /></label>
+        <span style="flex:1"></span>
+        <button class="btn small" id="${id}_send">إرسال</button>
+      </div>
+      <div id="${id}_status" class="auth-msg" style="text-align:right;margin-top:8px"></div>
+    </div>`;
+}
+
+async function sendPost(category, { textId, imgId, fileId, statusId, imgLbl, fileLbl }){
+  const text = document.getElementById(textId).value.trim();
+  const imgEl = document.getElementById(imgId), fileEl = document.getElementById(fileId);
+  const status = document.getElementById(statusId);
+  const imgFile = imgEl.files[0], fileFile = fileEl.files[0];
+
+  if(!text && !imgFile && !fileFile){
+    status.className = "auth-msg err"; status.textContent = "اكتب رسالة أو اختر ملف";
+    return;
+  }
+
+  status.className = "auth-msg"; status.textContent = "جاري الإرسال...";
+  let image=null, fileData=null;
+  try{
+    if(imgFile) image = await uploadImage(imgFile);
+    if(fileFile) fileData = await uploadFile(fileFile);
+  }catch(e){
+    status.className = "auth-msg err"; status.textContent = "فشل الرفع: " + e.message;
+    return;
+  }
+
+  await push(ref(db,"feed"), {
+    category, text, image, file:fileData,
+    from: { uid: me.uid, name: me.name, email: me.email, role: me.role, isOwner: me.isOwner },
+    createdAt: Date.now()
+  });
+
+  document.getElementById(textId).value = "";
+  imgEl.value = ""; fileEl.value = "";
+  if(imgLbl) document.getElementById(imgLbl).classList.remove("attached");
+  if(fileLbl) document.getElementById(fileLbl).classList.remove("attached");
+  status.className = "auth-msg ok"; status.textContent = "تم الإرسال";
+  toast("تم النشر");
+  setTimeout(()=>{ status.textContent = ""; }, 2000);
+}
+
+function bindComposerAttach(id){
+  const imgEl = document.getElementById(id+"_img");
+  const fileEl = document.getElementById(id+"_file");
+  const imgLbl = document.getElementById(id+"_imgLbl");
+  const fileLbl = document.getElementById(id+"_fileLbl");
+  if(imgEl) imgEl.onchange = () => imgLbl.classList.toggle("attached", !!imgEl.files[0]);
+  if(fileEl) fileEl.onchange = () => fileLbl.classList.toggle("attached", !!fileEl.files[0]);
+}
+
+function renderChannel(){
+  const c = document.getElementById("content");
+  const canPost = hasPerm(me,"canPostChannel");
+  c.innerHTML = `
+    <div class="page-head">
+      <h2>📡 القناة العامة</h2>
+      <p>الرسائل العامة لكل أعضاء المنصة.</p>
+    </div>
+    ${canPost ? composerHTML("ch") : ""}
+    <div class="feed" id="feed"></div>
+  `;
+  if(canPost){
+    document.getElementById("ch_send").onclick = () => sendPost("channel", {
+      textId:"ch_text", imgId:"ch_img", fileId:"ch_file", statusId:"ch_status",
+      imgLbl:"ch_imgLbl", fileLbl:"ch_fileLbl"
+    });
+    bindComposerAttach("ch");
+  }
+  unsubFeed = onValue(ref(db,"feed"), snap => {
+    const feed = document.getElementById("feed");
+    if(!snap.exists()){ feed.innerHTML = emptyState("لا توجد منشورات بعد"); return; }
+    const items = [];
+    snap.forEach(ch => { const v = ch.val(); if(v.category === "channel") items.push({ key: ch.key, ...v }); });
+    items.sort((a,b)=>b.createdAt-a.createdAt);
+    if(!items.length){ feed.innerHTML = emptyState("لا توجد منشورات بعد"); return; }
+    feed.innerHTML = items.map(p => postHTML(p)).join("");
+    bindPostActions(feed);
+  });
+}
+
+function renderDevTab(){
+  const c = document.getElementById("content");
+  const canPost = hasPerm(me,"canPostDevTab");
+  c.innerHTML = `
+    <div class="page-head">
+      <h2>⚙️ للمطورين</h2>
+      <p>قسم خاص — يظهر لمن لديه صلاحية المشاهدة فقط.</p>
+    </div>
+    ${canPost ? composerHTML("dev") : ""}
+    <div class="feed" id="feed"></div>
+  `;
+  if(canPost){
+    document.getElementById("dev_send").onclick = () => sendPost("dev", {
+      textId:"dev_text", imgId:"dev_img", fileId:"dev_file", statusId:"dev_status",
+      imgLbl:"dev_imgLbl", fileLbl:"dev_fileLbl"
+    });
+    bindComposerAttach("dev");
+  }
+  unsubFeed = onValue(ref(db,"feed"), snap => {
+    const feed = document.getElementById("feed");
+    if(!snap.exists()){ feed.innerHTML = emptyState("لا توجد منشورات بعد"); return; }
+    const items = [];
+    snap.forEach(ch => { const v = ch.val(); if(v.category === "dev") items.push({ key: ch.key, ...v }); });
+    items.sort((a,b)=>b.createdAt-a.createdAt);
+    if(!items.length){ feed.innerHTML = emptyState("لا توجد منشورات بعد"); return; }
+    feed.innerHTML = items.map(p => postHTML(p)).join("");
+    bindPostActions(feed);
+  });
+}
+
+function postHTML(p){
+  const r = roleInfo(p.from);
+  const canDel = me.isOwner || hasPerm(me,"deleteAnyPost") || p.from?.uid === me.uid;
+  const canEdit = p.from?.uid === me.uid;
+  const avClass = p.from?.isOwner ? "owner" : (r.cls === "admin" ? "admin" : "");
+  return `
+    <div class="post" data-key="${p.key}">
+      <div class="post-head">
+        <div class="av ${avClass}">${esc(initial(p.from?.name))}</div>
+        <div class="meta">
+          <div class="name">${esc(p.from?.name || "؟")} ${roleBadge(p.from)}</div>
+          <div class="info">${fmtTime(p.createdAt)}</div>
+        </div>
+      </div>
+      ${p.text ? `<div class="body" data-body>${esc(p.text)}</div>` : ""}
+      ${p.image ? `<img class="attach-img" src="${esc(p.image.url)}" />` : ""}
+      ${p.file ? `<a class="attach-file" href="${esc(p.file.url)}" target="_blank" rel="noopener">📎 ${esc(p.file.name)} · ${(p.file.size/1024).toFixed(0)} KB</a>` : ""}
+      ${(canEdit || canDel) ? `
+        <div class="post-actions">
+          ${canEdit ? `<button class="edit" data-edit>✏️ تعديل</button>` : ""}
+          ${canDel ? `<button data-del>🗑 حذف</button>` : ""}
+        </div>` : ""}
+    </div>`;
+}
+
+function bindPostActions(container){
+  container.querySelectorAll("img.attach-img").forEach(img => {
+    img.onclick = () => {
+      document.getElementById("lightImg").src = img.src;
+      document.getElementById("lightbox").classList.add("open");
+    };
+  });
+  container.querySelectorAll(".post").forEach(post => {
+    const key = post.dataset.key;
+    const delBtn = post.querySelector("[data-del]");
+    const editBtn = post.querySelector("[data-edit]");
+    if(delBtn) delBtn.onclick = async () => {
+      if(!confirm("هل أنت متأكد من حذف هذا المنشور؟")) return;
+      await remove(ref(db,"feed/"+key));
+      toast("تم الحذف");
+    };
+    if(editBtn) editBtn.onclick = () => {
+      const body = post.querySelector("[data-body]");
+      if(!body) return;
+      if(editingPostKey === key){
+        const newText = body.textContent.trim();
+        update(ref(db,"feed/"+key), { text:newText }).then(()=>{ toast("تم التعديل"); editingPostKey = null; });
+      } else {
+        editingPostKey = key;
+        body.setAttribute("contenteditable","true");
+        body.style.outline = "1px dashed var(--neon)";
+        body.style.padding = "10px";
+        body.style.borderRadius = "8px";
+        body.focus();
+        editBtn.textContent = "💾 حفظ";
+      }
+    };
+  });
+}
+
+async function renderChats(){
+  const c = document.getElementById("content");
+  c.innerHTML = `
+    <div class="page-head">
+      <h2>💬 المحادثات</h2>
+      <p>تواصل خاص — كل رسالة محفوظة.</p>
+    </div>
+    <div class="chat-shell">
+      <div class="chat-side" id="chatSide"></div>
+      <div class="chat-room" id="chatRoom">
+        <div class="empty-chat"><div><div class="big">💬</div><div>اختر محادثة للبدء</div></div></div>
+      </div>
+    </div>
+  `;
+
+  const usnap = await get(ref(db,"users"));
+  allUsers = {};
+  if(usnap.exists()) usnap.forEach(ch => allUsers[ch.key] = ch.val());
+
+  const side = document.getElementById("chatSide");
+  const contacts = [];
+
+  if(me.isOwner){
+    Object.values(allUsers).forEach(u => { if(u.uid !== me.uid) contacts.push(u); });
+  } else {
+    const lastSnap = await get(ref(db,"chatsByUser/"+me.uid));
+    const existing = {};
+    if(lastSnap.exists()) lastSnap.forEach(ch => existing[ch.key] = true);
+
+    Object.values(allUsers).forEach(u => {
+      if(u.uid === me.uid) return;
+      const isOwnerUser = u.role === "owner" || isOwner(u.email);
+      const canReceive = isOwnerUser || (u.perms && u.perms.receiveUserMsgs);
+      if(canReceive || existing[u.uid]) contacts.push(u);
+    });
+  }
+
+  if(!contacts.length){
+    side.innerHTML = `<div class="empty-state"><div class="big">💬</div>لا توجد محادثات متاحة</div>`;
+    return;
+  }
+
+  const lastSnap = await get(ref(db,"chatsByUser/"+me.uid));
+  const lastMap = {};
+  if(lastSnap.exists()) lastSnap.forEach(ch => lastMap[ch.key] = ch.val());
+  contacts.sort((a,b) => (lastMap[b.uid]?.lastAt||0) - (lastMap[a.uid]?.lastAt||0));
+
+  side.innerHTML = `<h4>جهات الاتصال</h4>` + contacts.map(u => {
+    const r = roleInfo(u);
+    const avClass = u.isOwner ? "owner" : (r.cls === "admin" ? "admin" : "");
+    const last = lastMap[u.uid]?.lastText || "لا توجد رسائل";
+    const lastAt = lastMap[u.uid]?.lastAt ? fmtTime(lastMap[u.uid].lastAt) : "";
+    return `
+      <div class="chat-contact" data-uid="${u.uid}" onclick="openChat('${u.uid}')">
+        <div class="av ${avClass}">${esc(initial(u.name))}</div>
+        <div class="info">
+          <div class="n">${esc(u.name)}</div>
+          <div class="p">${r.icon} ${esc(last)}</div>
+        </div>
+        <div class="time">${lastAt}</div>
+      </div>`;
+  }).join("");
+}
+
+window.openChat = async uid => {
+  activeChatUid = uid;
+  document.querySelectorAll(".chat-contact").forEach(el => el.classList.toggle("active", el.dataset.uid===uid));
+  const target = allUsers[uid];
+  if(!target) return;
+  const r = roleInfo(target);
+  const targetIsOwner = target.isOwner || target.role === "owner" || isOwner(target.email);
+  const canSend = me.isOwner || hasPerm(me,"replyChats") || targetIsOwner;
+  const avClass = targetIsOwner ? "owner" : (r.cls === "admin" ? "admin" : "");
+
+  const room = document.getElementById("chatRoom");
+  room.innerHTML = `
+    <div class="chat-header">
+      <div class="av ${avClass}">${esc(initial(target.name))}</div>
+      <div class="who">
+        <h3>${esc(target.name)} ${roleBadge({...target, isOwner: targetIsOwner})}</h3>
+        <span>${esc(target.email)}</span>
+      </div>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    ${canSend ? `
+    <div class="chat-compose">
+      <label class="icon-btn" id="ci_imgLbl">🖼️<input type="file" accept="image/*" id="ci_img" /></label>
+      <label class="icon-btn" id="ci_fileLbl">📎<input type="file" id="ci_file" /></label>
+      <textarea id="ci_text" placeholder="اكتب رسالة..." rows="1"></textarea>
+      <button class="icon-btn send" id="ci_send">➤</button>
+    </div>` : ``}
+  `;
+
+  if(canSend){
+    const imgEl = document.getElementById("ci_img");
+    const fileEl = document.getElementById("ci_file");
+    imgEl.onchange = () => document.getElementById("ci_imgLbl").style.color = imgEl.files[0] ? "var(--neon)" : "";
+    fileEl.onchange = () => document.getElementById("ci_fileLbl").style.color = fileEl.files[0] ? "var(--neon)" : "";
+    document.getElementById("ci_send").onclick = () => sendChat(target);
+    const tEl = document.getElementById("ci_text");
+    tEl.addEventListener("keydown", e => {
+      if(e.key === "Enter" && !e.shiftKey){ e.preventDefault(); sendChat(target); }
+    });
+    tEl.addEventListener("input", () => {
+      tEl.style.height = "auto";
+      tEl.style.height = Math.min(tEl.scrollHeight, 130) + "px";
+    });
+  }
+
+  if(unsubChatRoom){ unsubChatRoom(); unsubChatRoom=null; }
+  const key = chatKey(me.uid, uid);
+  unsubChatRoom = onValue(ref(db,"chats/"+key+"/messages"), snap => {
+    const body = document.getElementById("chatBody");
+    if(!snap.exists()){
+      body.innerHTML = `<div class="empty-chat"><div><div class="big">✨</div>لا توجد رسائل — ابدأ الحديث</div></div>`;
+      return;
+    }
+    const msgs = [];
+    snap.forEach(ch => msgs.push({ key: ch.key, ...ch.val() }));
+    msgs.sort((a,b)=>a.createdAt-b.createdAt);
+    body.innerHTML = msgs.map(m => bubbleHTML(m,key)).join("");
+    body.scrollTop = body.scrollHeight;
+    body.querySelectorAll("img").forEach(img => {
+      img.onclick = () => {
+        document.getElementById("lightImg").src = img.src;
+        document.getElementById("lightbox").classList.add("open");
+      };
+    });
+    body.querySelectorAll("[data-delmsg]").forEach(b => {
+      b.onclick = async () => {
+        if(!confirm("حذف الرسالة؟")) return;
+        await remove(ref(db,"chats/"+key+"/messages/"+b.dataset.delmsg));
+      };
+    });
+    body.querySelectorAll("[data-editmsg]").forEach(b => {
+      b.onclick = () => startEditMsg(key, b.dataset.editmsg);
+    });
+  });
+};
+
+function bubbleHTML(m, chatKeyStr){
+  const mine = m.from?.uid === me.uid;
+  const canDel = mine || me.isOwner || hasPerm(me,"deleteAnyMessage");
+  const canEdit = mine;
+  return `
+    <div class="bubble ${mine ? "mine" : "theirs"}">
+      ${m.text ? `<div class="txt">${esc(m.text)}</div>` : ""}
+      ${m.image ? `<img src="${esc(m.image.url)}" />` : ""}
+      ${m.file ? `<a class="f-link" href="${esc(m.file.url)}" target="_blank" rel="noopener">📎 ${esc(m.file.name)}</a>` : ""}
+      <span class="stamp">${fmtTime(m.createdAt)}</span>
+      ${(canEdit || canDel) ? `
+        <div class="bub-acts">
+          ${canEdit ? `<button data-editmsg="${m.key}">✏️</button>` : ""}
+          ${canDel ? `<button data-delmsg="${m.key}">🗑</button>` : ""}
+        </div>` : ""}
+    </div>`;
+}
+
+async function startEditMsg(chatKeyStr, msgKey){
+  const cur = prompt("عدّل الرسالة:");
+  if(cur === null) return;
+  await update(ref(db,"chats/"+chatKeyStr+"/messages/"+msgKey), { text: cur.trim() });
+  toast("تم التعديل");
+}
+
+async function sendChat(target){
+  const textEl = document.getElementById("ci_text");
+  const imgEl = document.getElementById("ci_img");
+  const fileEl = document.getElementById("ci_file");
+  const text = textEl.value.trim();
+  const imgFile = imgEl.files[0], fileFile = fileEl.files[0];
+  if(!text && !imgFile && !fileFile) return;
+
+  let image=null, fileData=null;
+  try{
+    if(imgFile) image = await uploadImage(imgFile);
+    if(fileFile) fileData = await uploadFile(fileFile);
+  }catch(e){ toast("فشل الرفع: "+e.message, true); return; }
+
+  const key = chatKey(me.uid, target.uid);
+  const msg = {
+    text, image, file:fileData,
+    from:{ uid: me.uid, name: me.name, email: me.email, role: me.role, isOwner: me.isOwner },
+    createdAt: Date.now()
+  };
+  await push(ref(db,"chats/"+key+"/messages"), msg);
+
+  const preview = text || (image ? "[صورة]" : "[ملف]");
+  await update(ref(db,"chatsByUser/"+me.uid+"/"+target.uid), { lastText: preview, lastAt: Date.now(), otherUid: target.uid });
+  await update(ref(db,"chatsByUser/"+target.uid+"/"+me.uid), { lastText: preview, lastAt: Date.now(), otherUid: me.uid });
+
+  textEl.value = "";
+  imgEl.value = ""; fileEl.value = "";
+  document.getElementById("ci_imgLbl").style.color = "";
+  document.getElementById("ci_fileLbl").style.color = "";
+  textEl.style.height = "auto";
+}
+
+const chatKey = (a,b) => [a,b].sort().join("__");
+
+async function renderAdmin(){
+  const c = document.getElementById("content");
+  c.innerHTML = `
+    <div class="page-head">
+      <h2>🛡️ الإدارة</h2>
+      <p>إدارة الأعضاء وتخصيص صلاحياتهم بشكل فردي.</p>
+    </div>
+    <div class="user-list" id="userList"></div>
+  `;
+  const snap = await get(ref(db,"users"));
+  const list = document.getElementById("userList");
+  if(!snap.exists()){ list.innerHTML = emptyState("لا يوجد أعضاء"); return; }
+  const users = [];
+  snap.forEach(ch => users.push({ key: ch.key, ...ch.val() }));
+  users.sort((a,b) => {
+    const order = { owner:0, admin:1, dev:2, user:3 };
+    const oa = order[a.role] ?? 9, ob = order[b.role] ?? 9;
+    if(oa !== ob) return oa - ob;
+    return (b.createdAt||0) - (a.createdAt||0);
+  });
+  list.innerHTML = users.map(u => {
+    const r = roleInfo(u);
+    const avClass = u.isOwner ? "owner" : (r.cls === "admin" ? "admin" : "");
+    const permCount = u.isOwner ? PERMS.length : Object.values(u.perms||{}).filter(Boolean).length;
+    const canEdit = me.isOwner || hasPerm(me,"manageUsers");
+    return `
+      <div class="user-item">
+        <div class="av ${avClass}">${esc(initial(u.name))}</div>
+        <div class="u-info">
+          <div class="n">${esc(u.name)} ${roleBadge(u)}</div>
+          <div class="e">${esc(u.email)}</div>
+          <div class="perms">${permCount} صلاحية مُفعّلة</div>
+        </div>
+        ${canEdit ? `<button class="btn ghost small" onclick="openPermModal('${u.uid}')">⚙️ الصلاحيات</button>` : ""}
+      </div>`;
+  }).join("");
+}
+
+window.openPermModal = async uid => {
+  permTargetUid = uid;
+  const u = allUsers[uid] || (await get(ref(db,"users/"+uid))).val();
+  if(!u) return;
+  allUsers[uid] = u;
+  document.getElementById("pmTitle").textContent = "صلاحيات: " + u.name;
+  document.getElementById("pmSub").textContent = u.email;
+
+  let body = `
+    <div class="field">
+      <label>الرتبة الأساسية</label>
+      <select id="pmRole">
+        <option value="user"  ${u.role==="user"?"selected":""}>عضو</option>
+        <option value="admin" ${u.role==="admin"?"selected":""}>أدمن</option>
+        <option value="dev"   ${u.role==="dev"?"selected":""}>مطوّر مساعد</option>
+      </select>
+    </div>
+    <div style="margin:18px 0 10px;font-size:11px;color:var(--muted);letter-spacing:2px;font-weight:700">الصلاحيات التفصيلية</div>
+  `;
+  PERMS.forEach(p => {
+    const checked = u.perms?.[p.key] ? "checked" : "";
+    body += `
+      <label class="perm-row">
+        <input type="checkbox" data-perm="${p.key}" ${checked} />
+        <div class="ptxt">
+          <b>${p.label}</b>
+          <small>${p.desc}</small>
+        </div>
+      </label>`;
+  });
+  document.getElementById("pmBody").innerHTML = body;
+  document.getElementById("permModal").classList.add("open");
+};
+
+window.closePermModal = () => {
+  document.getElementById("permModal").classList.remove("open");
+  permTargetUid = null;
+};
+
+window.savePerms = async () => {
+  if(!permTargetUid) return;
+  const role = document.getElementById("pmRole").value;
+  const perms = {};
+  document.querySelectorAll("#pmBody input[data-perm]").forEach(cb => {
+    perms[cb.dataset.perm] = cb.checked;
+  });
+  await update(ref(db,"users/"+permTargetUid), { role, perms });
+  toast("تم حفظ الصلاحيات");
+  closePermModal();
+  renderAdmin();
+};
+
+function renderProfile(){
+  const c = document.getElementById("content");
+  const r = roleInfo(me);
+  const permList = me.isOwner ? PERMS.map(p=>p.label) : PERMS.filter(p=>me.perms?.[p.key]).map(p=>p.label);
+  c.innerHTML = `
+    <div class="page-head">
+      <h2>👤 حسابي</h2>
+      <p>بيانات حسابك الأساسية.</p>
+    </div>
+    <div class="composer" style="max-width:560px">
+      <div class="field">
+        <label>الاسم الظاهر</label>
+        <input id="pName" value="${esc(me.name)}" />
+      </div>
+      <div class="field">
+        <label>البريد الإلكتروني</label>
+        <input value="${esc(me.email)}" disabled />
+      </div>
+      <div class="field">
+        <label>الرتبة</label>
+        <input value="${r.icon} ${r.label}" disabled />
+      </div>
+      <div class="field">
+        <label>الصلاحيات المُفعّلة</label>
+        <div style="font-size:13px;color:var(--muted);padding:12px;background:rgba(3,5,3,.5);border:1px solid var(--line);border-radius:10px;line-height:1.9">
+          ${permList.length ? permList.map(esc).join(" · ") : "لا توجد صلاحيات خاصة"}
+        </div>
+      </div>
+      <button class="btn" id="pSave" style="margin-top:8px">حفظ التعديلات</button>
+    </div>
+  `;
+  document.getElementById("pSave").onclick = async () => {
+    const name = document.getElementById("pName").value.trim();
+    if(!name) return toast("اكتب اسم صحيح", true);
+    await update(ref(db,"users/"+me.uid), { name });
+    me.name = name;
+    document.getElementById("meName").textContent = name;
+    document.getElementById("meAv").textContent = initial(name);
+    toast("تم الحفظ");
+  };
+}
+
+function emptyState(msg){
+  return `<div class="empty-state"><div class="big">📭</div>${esc(msg)}</div>`;
+}
+</script>
+</body>
+</html>
